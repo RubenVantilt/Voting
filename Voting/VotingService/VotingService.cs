@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.ServiceFabric.Data.Collections;
+using Microsoft.ServiceFabric.Actors;
+using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using PollActorService.Interfaces;
 using Voting.Interfaces;
 
 namespace VotingService
@@ -31,41 +30,34 @@ namespace VotingService
             return new[] { new ServiceInstanceListener(context => this.CreateServiceRemotingListener(context)) };
         }
 
-        /// <summary>
-        /// This is the main entry point for your service instance.
-        /// </summary>
-        /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
-        protected override async Task RunAsync(CancellationToken cancellationToken)
+        public Task<Guid> CreatePoll()
         {
-            // TODO: Replace the following sample code with your own logic 
-            //       or remove this RunAsync override if it's not needed in your service.
+            Guid pollId = Guid.NewGuid();
 
-            long iterations = 0;
+            ActorProxy.Create<IPollActorService>(new ActorId(pollId), new Uri("fabric:/Voting/PollActorServiceActorService"));
 
-            while (true)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                ServiceEventSource.Current.ServiceMessage(this.Context, "Working-{0}", ++iterations);
-
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-            }
+            return Task.FromResult(pollId);
         }
 
-        private static IDictionary<string, int> options = new ConcurrentDictionary<string, int>();
-        public Task AddOption(string option)
+        public Task<Dictionary<string, int>> GetOptions(Guid pollId)
         {
-            options.Add(option, 0);
-            return Task.CompletedTask;
+            var poll = ActorProxy.Create<IPollActorService>(new ActorId(pollId), new Uri("fabric:/Voting/PollActorServiceActorService"));
+
+            return poll.GetOptions();
         }
 
-        public Task Vote(string option)
+        public Task AddOption(Guid pollId, string option)
         {
-            options[option]++;
-            return Task.CompletedTask;
+            var poll = ActorProxy.Create<IPollActorService>(new ActorId(pollId), new Uri("fabric:/Voting/PollActorServiceActorService"));
+
+            return poll.AddOption(option);
         }
 
+        public Task Vote(Guid pollId, string option)
+        {
+            var poll = ActorProxy.Create<IPollActorService>(new ActorId(pollId), new Uri("fabric:/Voting/PollActorServiceActorService"));
+
+            return poll.Vote(option);
+        }
     }
-
-
 }

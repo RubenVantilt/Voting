@@ -3,5 +3,6 @@
   <Parameters>
     <Parameter Name="Voting.WebAPI_InstanceCount" Value="1" />
     <Parameter Name="VotingService_InstanceCount" Value="1" />
+    <Parameter Name="PollActorServiceActorService_PartitionCount" Value="1" />
   </Parameters>
 </Application>

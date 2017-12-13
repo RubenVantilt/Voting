@@ -3,6 +3,9 @@
   <Parameters>
     <Parameter Name="Voting.WebAPI_InstanceCount" DefaultValue="-1" />
     <Parameter Name="VotingService_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="PollActorServiceActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="PollActorServiceActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="PollActorServiceActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -14,6 +17,9 @@
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="VotingServicePkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="PollActorServicePkg" ServiceManifestVersion="1.0.0" />
   </ServiceManifestImport>
   <DefaultServices>
     <!-- The section below creates instances of service types, when an instance of this 
@@ -30,6 +36,11 @@
       <StatelessService ServiceTypeName="VotingServiceType" InstanceCount="[VotingService_InstanceCount]">
         <SingletonPartition />
       </StatelessService>
+    </Service>
+    <Service Name="PollActorServiceActorService" GeneratedIdRef="e4657bc3-2ee1-4540-8503-73e0e7dd4c4f|Persisted">
+      <StatefulService ServiceTypeName="PollActorServiceType" TargetReplicaSetSize="[PollActorServiceActorService_TargetReplicaSetSize]" MinReplicaSetSize="[PollActorServiceActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[PollActorServiceActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
     </Service>
   </DefaultServices>
 </ApplicationManifest>

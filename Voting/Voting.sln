@@ -7,9 +7,13 @@ Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Voting", "Voting\Voting.sfp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotingService", "VotingService\VotingService.csproj", "{3873E58B-08FE-4B26-9401-7780BA48AD24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voting.WebAPI", "Voting.WebAPI\Voting.WebAPI.csproj", "{FA2C8DD7-0CC2-4167-BE6C-D62F31038258}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Voting.WebAPI", "Voting.WebAPI\Voting.WebAPI.csproj", "{FA2C8DD7-0CC2-4167-BE6C-D62F31038258}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voting.Interfaces", "Voting.Interfaces\Voting.Interfaces.csproj", "{854C3687-992F-46AD-8A5A-F64D6A3CDD31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollActorService", "PollActorService\PollActorService.csproj", "{75E458B4-5213-4C14-BC4A-57AF7EDF0921}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollActorService.Interfaces", "PollActorService.Interfaces\PollActorService.Interfaces.csproj", "{53273900-C00C-4D1F-A728-65F61A179DA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,18 @@ Global
 		{854C3687-992F-46AD-8A5A-F64D6A3CDD31}.Release|Any CPU.Build.0 = Release|Any CPU
 		{854C3687-992F-46AD-8A5A-F64D6A3CDD31}.Release|x64.ActiveCfg = Release|Any CPU
 		{854C3687-992F-46AD-8A5A-F64D6A3CDD31}.Release|x64.Build.0 = Release|Any CPU
+		{75E458B4-5213-4C14-BC4A-57AF7EDF0921}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{75E458B4-5213-4C14-BC4A-57AF7EDF0921}.Debug|x64.ActiveCfg = Debug|x64
+		{75E458B4-5213-4C14-BC4A-57AF7EDF0921}.Debug|x64.Build.0 = Debug|x64
+		{75E458B4-5213-4C14-BC4A-57AF7EDF0921}.Release|Any CPU.ActiveCfg = Release|x64
+		{75E458B4-5213-4C14-BC4A-57AF7EDF0921}.Release|x64.ActiveCfg = Release|x64
+		{75E458B4-5213-4C14-BC4A-57AF7EDF0921}.Release|x64.Build.0 = Release|x64
+		{53273900-C00C-4D1F-A728-65F61A179DA8}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{53273900-C00C-4D1F-A728-65F61A179DA8}.Debug|x64.ActiveCfg = Debug|x64
+		{53273900-C00C-4D1F-A728-65F61A179DA8}.Debug|x64.Build.0 = Debug|x64
+		{53273900-C00C-4D1F-A728-65F61A179DA8}.Release|Any CPU.ActiveCfg = Release|x64
+		{53273900-C00C-4D1F-A728-65F61A179DA8}.Release|x64.ActiveCfg = Release|x64
+		{53273900-C00C-4D1F-A728-65F61A179DA8}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

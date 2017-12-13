@@ -18,23 +18,45 @@ namespace Voting.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("AddOption")]
-        public async Task<IActionResult> AddOption([FromBody] string option)
+        [Route("CreatePoll")]
+        public async Task<IActionResult> CreatePoll()
         {
             var proxy = ServiceProxy.Create<IVotingService>(new Uri("fabric:/Voting/VotingService"));
 
-            await proxy.AddOption(option).ConfigureAwait(false); 
+            var pollId = await proxy.CreatePoll().ConfigureAwait(false);
+
+            return Ok(pollId);
+        }
+
+        [HttpGet]
+        [Route("{pollId}/GetOptions")]
+        public async Task<IActionResult> GetOptions(Guid pollId)
+        {
+            var proxy = ServiceProxy.Create<IVotingService>(new Uri("fabric:/Voting/VotingService"));
+
+            var options = await proxy.GetOptions(pollId);
+
+            return Json(options);
+        }
+
+        [HttpPost]
+        [Route("{pollId}/AddOption")]
+        public async Task<IActionResult> AddOption(Guid pollId, [FromBody] string option)
+        {
+            var proxy = ServiceProxy.Create<IVotingService>(new Uri("fabric:/Voting/VotingService"));
+
+            await proxy.AddOption(pollId, option).ConfigureAwait(false); 
 
             return Ok();
         }
 
         [HttpPost]
-        [Route("Vote")]
-        public async Task<IActionResult> Vote([FromBody] string option)
+        [Route("{pollId}/Vote")]
+        public async Task<IActionResult> Vote(Guid pollId, [FromBody] string option)
         {
             var proxy = ServiceProxy.Create<IVotingService>(new Uri("fabric:/Voting/VotingService"));
 
-            await proxy.Vote(option).ConfigureAwait(false);
+            await proxy.Vote(pollId, option).ConfigureAwait(false);
 
             return Ok();
         }

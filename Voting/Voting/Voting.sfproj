@@ -32,6 +32,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PollActorService\PollActorService.csproj" />
     <ProjectReference Include="..\Voting.WebAPI\Voting.WebAPI.csproj" />
     <ProjectReference Include="..\VotingService\VotingService.csproj" />
   </ItemGroup>
